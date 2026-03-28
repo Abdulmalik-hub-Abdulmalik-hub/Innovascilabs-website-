@@ -1,9 +1,18 @@
-
-<svg width="180" height="60" xmlns="http://www.w3.org/2000/svg">
-  <rect width="180" height="60" fill="#0A1F44" rx="12"/>
-  <text x="50%" y="50%" fill="#00A86B" font-size="20"
+<svg width="220" height="60" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="220" height="60" fill="#0A1F44" rx="12"/>
+  
+  <!-- Main Logo Text -->
+  <text x="50%" y="35%" fill="#00A86B" font-size="20"
         font-family="Arial" dominant-baseline="middle"
         text-anchor="middle">
         InnovaSci
+  </text>
+  
+  <!-- Full Company Name (small, below main text) -->
+  <text x="50%" y="75%" fill="#00A86B" font-size="10"
+        font-family="Arial" dominant-baseline="middle"
+        text-anchor="middle">
+        AI Labs – Center for Computational Science & AI Research Academy
   </text>
 </svg>
