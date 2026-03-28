@@ -3,28 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | InnovaSci</title>
+    <title>About | InnovaSci AI Labs</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- NAVBAR -->
     <nav class="navbar">
-        <div class="logo"><h2 style="color:#00A86B">InnovaSci</h2></div>
+        <div class="logo">
+            <h2 style="color:#00A86B">InnovaSci AI Labs</h2>
+            <small>Center for Computational Science & AI Research Academy</small>
+        </div>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
+            <li><a href="academy/index.html">Academy</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="blog/blog.html">Blog</a></li>
             <li><a href="about.html">About</a></li>
+            <li><a href="portal/login.html">Login</a></li>
         </ul>
     </nav>
+
+    <!-- MAIN CONTENT -->
     <main class="container">
-        <h1>About InnovaSci</h1>
-        <div class="card">
+        <h1>About InnovaSci AI Labs</h1>
+
+        <!-- Vision Card -->
+        <div class="card" id="vision-card">
             <h3>Our Vision</h3>
             <p>To lead the digital transformation of scientific research across Africa.</p>
         </div>
-        <div class="card">
+
+        <!-- Founder Card (dynamic editable) -->
+        <div class="card" id="founder-card">
             <h3>Founder</h3>
-            <p>Abdulmalik Musba — Chemistry & Python Expert.</p>
+            <p id="founder-info">Admin will populate founder info here.</p>
         </div>
+
+        <!-- Dynamic Services placeholder -->
+        <section id="services">
+            <h2>Our Services</h2>
+            <div class="cards">
+                <!-- Admin will add service cards here -->
+            </div>
+        </section>
+
+        <!-- Dynamic Projects placeholder -->
+        <section id="projects">
+            <h2>Projects</h2>
+            <div class="cards">
+                <!-- Admin will add project cards here -->
+            </div>
+        </section>
     </main>
+
+    <!-- SCRIPT FOR DYNAMIC ADMIN CONTENT -->
+    <script src="assets/js/supabaseClient.js"></script>
+    <script>
+    async function loadFounderInfo(){
+        const { data, error } = await supabase.from('founder_info').select('*').limit(1).single();
+        if(data){
+            document.getElementById('founder-info').textContent = `${data.full_name} — ${data.bio}`;
+        }
+    }
+
+    async function loadServices(){
+        const { data } = await supabase.from('services').select('*');
+        const container = document.querySelector('#services .cards');
+        container.innerHTML = "";
+        if(data && data.length > 0){
+            data.forEach(s => {
+                container.innerHTML += `<div class="card"><h3>${s.title}</h3><p>${s.description}</p></div>`;
+            });
+        }
+    }
+
+    async function loadProjects(){
+        const { data } = await supabase.from('projects').select('*');
+        const container = document.querySelector('#projects .cards');
+        container.innerHTML = "";
+        if(data && data.length > 0){
+            data.forEach(p => {
+                container.innerHTML += `<div class="card"><h3>${p.title}</h3><p>Status: ${p.status}</p></div>`;
+            });
+        }
+    }
+
+    // Call load functions
+    loadFounderInfo();
+    loadServices();
+    loadProjects();
+    </script>
+
 </body>
 </html>
