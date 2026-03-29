@@ -1,0 +1,7 @@
+herenode_modules
+.next
+out
+build
+.env
+.env.local
+.DS_Store
