@@ -7,10 +7,6 @@ const nextConfig = {
       "images.unsplash.com",
       "your-project-id.supabase.co"
     ]
-  },
-
-  experimental: {
-    serverActions: true
   }
 };
 
