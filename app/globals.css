@@ -1,0 +1,60 @@
+here@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 15, 23, 42;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 248, 250, 252;
+  
+  /* Brand Colors: Metallic Gold & Professional Slate */
+  --primary-gold: 212, 175, 55;
+  --primary-gold-hover: 184, 150, 47;
+}
+
+@layer base {
+  body {
+    color: rgb(var(--foreground-rgb));
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgb(var(--background-end-rgb))
+      )
+      rgb(var(--background-start-rgb));
+  }
+}
+
+@layer components {
+  .btn-gold {
+    @apply px-6 py-2.5 bg-[#D4AF37] text-white font-semibold rounded-lg 
+           hover:bg-[#B8962F] transition-all duration-200 shadow-sm
+           active:scale-95 disabled:opacity-50 disabled:pointer-events-none;
+  }
+  
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-md border border-slate-200/50 shadow-xl;
+  }
+
+  .admin-sidebar-item {
+    @apply flex items-center gap-3 px-4 py-3 rounded-xl transition-colors
+           text-slate-600 hover:bg-slate-100 hover:text-slate-900;
+  }
+}
+
+/* Custom Scrollbar for modern look */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #cbd5e1;
+}
