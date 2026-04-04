@@ -1,44 +1,55 @@
-import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { createServerClient } from '@supabase/ssr'
+import { NextResponse, type NextRequest } from 'next/server'
 
-export async function middleware(req: NextRequest) {
-  const res = NextResponse.next()
-  const supabase = createMiddlewareClient({ req, res })
+export async function middleware(request: NextRequest) {
+  let response = NextResponse.next({
+    request: {
+      headers: request.headers,
+    },
+  })
 
-  // Wannan yana duba ko user yana da session (login)
-  const {
-    data: { session },
-  } = await supabase.auth.getSession()
-
-  const url = new URL(req.url)
-
-  // 1. Kare Admin Routes (/admin)
-  if (url.pathname.startsWith('/admin')) {
-    // Idan ba a yi login ba, tura shi login page
-    if (!session) {
-      return NextResponse.redirect(new URL('/login', req.url))
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll()
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) => request.cookies.set(name, value))
+          response = NextResponse.next({
+            request: {
+              headers: request.headers,
+            },
+          })
+          cookiesToSet.forEach(({ name, value, options }) =>
+            response.cookies.set(name, value, options)
+          )
+        },
+      },
     }
+  )
 
-    // Idan email dinsa ba na Admin bane (abdulmalikmusba@gmail.com), tura shi dashboard na talaka
-    if (session.user.email !== process.env.ADMIN_EMAIL) {
-      return NextResponse.redirect(new URL('/dashboard', req.url))
+  const { data: { user } } = await supabase.auth.getUser()
+
+  // Kare Admin Routes
+  if (request.nextUrl.pathname.startsWith('/admin')) {
+    if (!user || user.email !== 'abdulmalikmusba@gmail.com') {
+      return NextResponse.redirect(new URL('/login', request.url))
     }
   }
 
-  // 2. Kare User Dashboard (/dashboard)
-  if (url.pathname.startsWith('/dashboard') && !session) {
-    return NextResponse.redirect(new URL('/login', req.url))
+  // Kare Dashboard Routes
+  if (request.nextUrl.pathname.startsWith('/dashboard') && !user) {
+    return NextResponse.redirect(new URL('/login', request.url))
   }
 
-  return res
+  return response
 }
 
-// Wadanne wurare ne middleware zai rinka gadi?
 export const config = {
   matcher: [
-    '/admin/:path*',
-    '/dashboard/:path*',
-    '/profile/:path*',
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 }
