@@ -16,7 +16,9 @@
     "@supabase/supabase-js": "latest",
     "tailwindcss": "latest",
     "@tailwindcss/postcss": "latest",
-    "lucide-react": "latest"
+"@tailwindcss/postcss": "^4.0.0"
+ 
+   "lucide-react": "latest"
   },
   "devDependencies": {
     "typescript": "latest",
