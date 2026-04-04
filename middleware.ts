@@ -33,7 +33,7 @@ export async function middleware(request: NextRequest) {
 
   const { data: { user } } = await supabase.auth.getUser()
 
-  // Kare Admin Routes
+  // Kare Admin Routes (Email dinka kadai aka yarda)
   if (request.nextUrl.pathname.startsWith('/admin')) {
     if (!user || user.email !== 'abdulmalikmusba@gmail.com') {
       return NextResponse.redirect(new URL('/login', request.url))
