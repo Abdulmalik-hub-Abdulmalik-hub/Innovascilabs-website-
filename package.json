@@ -9,22 +9,21 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@supabase/ssr": "latest",
-    "@supabase/supabase-js": "latest",
-    "lucide-react": "latest",
-    "next": "latest",
+    "next": "16.2.2",
     "react": "latest",
     "react-dom": "latest",
-    "clsx": "latest",
-    "tailwind-merge": "latest"
+    "@supabase/ssr": "latest",
+    "@supabase/supabase-js": "latest",
+    "tailwindcss": "latest",
+    "@tailwindcss/postcss": "latest",
+    "lucide-react": "latest"
   },
   "devDependencies": {
+    "typescript": "latest",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
-    "autoprefixer": "latest",
     "postcss": "latest",
-    "tailwindcss": "latest",
-    "typescript": "latest"
+    "autoprefixer": "latest"
   }
 }
