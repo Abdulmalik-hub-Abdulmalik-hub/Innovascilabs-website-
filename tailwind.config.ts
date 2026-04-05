@@ -5,15 +5,17 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./features/**/*.{js,ts,jsx,tsx,mdx}",
-    "./sections/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
-        gold: {
-          light: "#E5C76B",
-          DEFAULT: "#D4AF37",
-          dark: "#B8962F",
+        primary: {
+          DEFAULT: "#D4AF37", // Metallic Gold
+          foreground: "#FFFFFF",
+        },
+        secondary: {
+          DEFAULT: "#1E3A8A", // Trust Blue
+          foreground: "#FFFFFF",
         },
       },
     },
@@ -21,4 +23,3 @@ const config: Config = {
   plugins: [],
 };
 export default config;
-
